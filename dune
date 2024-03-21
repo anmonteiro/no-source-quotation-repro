@@ -1,0 +1,16 @@
+(library
+ (name myppx)
+ (modules myppx)
+ (kind ppx_rewriter)
+ (libraries ppxlib))
+
+(executable
+ (name foo)
+ (public_name myppx)
+ (modules foo)
+ (libraries ppxlib myppx))
+
+(rule
+ (with-stdout-to
+  foo.ml
+  (echo "let () = Ppxlib.Driver.run_as_ppx_rewriter ()")))
